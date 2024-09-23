@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Esta es un pagian web para la ULEAM">
+    <meta name="keywords" content="chismes, anonimos. ULEAM">
+    <link rel="stylesheet" href="{% static 'css/loader.css' %}">
+
+    <title>{% block title %} {% endblock title %}</title>
+</head>
+
+<body class="">
+    {% block header %}
+    {% include "register/sections/header_register.html" %}
+    {% endblock header %}
+    {% block content %}
+    {% endblock content %}
+</body>
+
+</html>

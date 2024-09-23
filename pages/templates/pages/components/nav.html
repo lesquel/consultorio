@@ -1,0 +1,18 @@
+<nav>
+    <ul>
+        <div>
+
+            <li><a href="">Home</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="">Contact</a></li>
+        </div>
+        <div>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'register:logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'register:login' %}">Login</a></li>
+                <li><a href="{% url 'register:signup' %}">Sign Up</a></li>
+            {% endif %}
+        </div>
+    </ul>
+</nav>
