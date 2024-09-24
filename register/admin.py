@@ -8,6 +8,7 @@ class PerfilInline(admin.StackedInline):
     model = Perfil
     can_delete = False
 
+
 # Extender el UserAdmin para incluir el Perfil
 class UserAdmin(BaseUserAdmin):
     inlines = [PerfilInline]
@@ -22,6 +23,13 @@ class UserAdmin(BaseUserAdmin):
             # Si el perfil no existe, no lo creamos aquí
             return super().get_inline_instances(request, obj)
         return super(UserAdmin, self).get_inline_instances(request, obj)
+
+class InfoUser(BaseUserAdmin):
+
+    def get_fieldsets(self, request, obj=None):
+        fieldsets = super().get_fieldsets(request, obj)
+        fieldsets[0][1]['fields'] = ('nombre', 'apellido', 'cedula', 'email', 'telefono', 'direccion', 'sexo', 'fecha_nacimiento')
+        return fieldsets
 
 # Desregistrar el UserAdmin por defecto y registrar el nuevo UserAdmin
 admin.site.unregister(User)

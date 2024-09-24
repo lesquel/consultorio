@@ -7,8 +7,10 @@
             <li><a href="">Contact</a></li>
         </div>
         <div>
+            
             {% if user.is_authenticated %}
-                <li><a href="{% url 'register:logout' %}">Logout</a></li>
+                <li><a href="{% url 'register:perfil' %}">Mi Perfil</a></li>
+                <li><a href="{% url 'register:logout' %}">Cerrar Sesión</a></li>
             {% else %}
                 <li><a href="{% url 'register:login' %}">Login</a></li>
                 <li><a href="{% url 'register:signup' %}">Sign Up</a></li>

@@ -1,0 +1,19 @@
+{% extends "register/layout/base_register.html" %}
+{% load static %}
+{% block title %}
+    Mi Perfil | Consultas
+{% endblock title %}
+{% block content %}
+
+<section>
+    <p>Nombre: {{ info_user.nombre }}</p>
+    <p>Apellido: {{ info_user.apellido }}</p>
+    <p>Cedula: {{ info_user.cedula }}</p>
+    <p>Email: {{ info_user.email }}</p>
+    <p>Telefono: {{ info_user.telefono }}</p>
+    <p>Direccion: {{ info_user.direccion }}</p>
+    <p>Sexo: {{ info_user.sexo }}</p>
+    <p>Fecha Nacimiento: {{ info_user.fecha_nacimiento }}</p>
+</section>
+
+{% endblock content %}

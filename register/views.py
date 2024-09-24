@@ -6,6 +6,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import  login_required
 from django.contrib.auth.models import User, Group
 from . import forms
+from .models import InfoUser
 
 # Create your views here.
 def signup_view(request):
@@ -19,7 +20,7 @@ def signup_view(request):
 
             # Asegurarse de que el grupo 'User' existe
             user_group, created = Group.objects.get_or_create(name='Usuario')
-
+            info_user = InfoUser.objects.create(user=user, nombre="", apellido="", cedula=00000, email="", telefono=00000)
             # Agregar el usuario al grupo User
             user.groups.add(user_group)
 
@@ -70,3 +71,11 @@ def logout_view(request):
             messages.success(request, "Sesión cerrada exitosamente.")
             logout(request)
             return redirect('register:login')
+
+
+@login_required
+def perfil_view(request):
+    if request.method == 'GET':
+        user = request.user
+        info_user = InfoUser.objects.get(user=user)
+        return render(request, 'register/pages/perfil.html', {"info_user": info_user})

@@ -19,3 +19,22 @@ class Perfil(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.get_rol_display()}"
     
+class Sexo(models.Model):
+    sexo = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.sexo}"
+
+class InfoUser(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=50)
+    apellido = models.CharField(max_length=50)
+    cedula = models.SmallIntegerField(max_length=10)
+    email = models.EmailField(max_length=50)
+    telefono = models.SmallIntegerField(max_length=50)
+    direccion = models.CharField(max_length=50, null=True, blank=True)
+    sexo = models.ForeignKey(Sexo, on_delete=models.CASCADE, null=True, blank=True)
+    fecha_nacimiento = models.DateField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.nombre} {self.apellido}"
