@@ -10,7 +10,7 @@ Sign up | CHISMES ULEAM
         <div
             class="bg-blanco mt-6 py-4 px-4  rounded-lg border-2 border-verder_claro  font-Courier_New shadow shadow-verder_claro">
             <form id="signup-form" method="post">
-                {% csrf_token %}
+                {% csrf_token %} 
                     <p class="flex flex-col my-2">
                     {% include "register/components/input.html" with id="username" label="Nombre" %}
                         {{ form.username }}

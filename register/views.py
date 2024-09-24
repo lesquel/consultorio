@@ -4,33 +4,36 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import  login_required
+from django.contrib.auth.models import User, Group
 from . import forms
 
 # Create your views here.
-
 def signup_view(request):
-    # Si el usuario ya esta autenticado, redirigir a la pagina principal
     if request.user.is_authenticated:
         return redirect('home')
 
-    # Si el metodo es POST, procesar el formulario de registro
     if request.method == 'POST':
         form = forms.SignUpForm(data=request.POST)
-        # Si el formulario es valido, crear el usuario y redirigir a la pagina principal
         if form.is_valid():
-            user = form.save()  
+            user = form.save()
+
+            # Asegurarse de que el grupo 'User' existe
+            user_group, created = Group.objects.get_or_create(name='Usuario')
+
+            # Agregar el usuario al grupo User
+            user.groups.add(user_group)
+
+            # Iniciar sesión y redirigir
             login(request, user)
             return JsonResponse({
                 "success": "Usuario creado exitosamente.",
                 "redirect": reverse('home')
             })
-        # Si el formulario no es valido, retornar los errores en formato JSON
+
         return JsonResponse({"error": form.errors.as_json()})
 
-    # Si el metodo es GET, retornar el formulario de registro
     form = forms.SignUpForm()
     return render(request, 'register/pages/signup.html', {"form": form})
-
 
 def login_view(request):
     # Si el usuario ya esta autenticado, redirigir a la pagina principal
